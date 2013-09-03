@@ -166,7 +166,7 @@ function kraken_settings_field_sample_textarea() {
     Each option field requires its own add_settings_field function.
  * ====================================================================== */
 
-// Register the theme options menu and its fields
+// Register the theme options page and its fields
 function kraken_theme_options_init() {
     register_setting(
         'kraken_options', // Options group, see settings_fields() call in kraken_theme_options_render_page()
@@ -200,28 +200,6 @@ add_action( 'admin_init', 'kraken_theme_options_init' );
 
 
 
-// Restrict access to the theme options page to admins
-function kraken_option_page_capability( $capability ) {
-    return 'edit_theme_options';
-}
-add_filter( 'option_page_capability_kraken_options', 'kraken_option_page_capability' );
-
-
-
-// Add the theme options page to the admin menu
-function kraken_theme_options_add_page() {
-    $theme_page = add_theme_page(
-        'Theme Options', // Name of page
-        'Theme Options', // Label in menu
-        'edit_theme_options', // Capability required
-        'theme_options', // Menu slug, used to uniquely identify the page
-        'kraken_theme_options_render_page' // Function that renders the options page
-    );
-}
-add_action( 'admin_menu', 'kraken_theme_options_add_page' );
-
-
-
 // Create theme options menu
 // The content that's rendered on the menu page.
 function kraken_theme_options_render_page() {
@@ -245,6 +223,28 @@ function kraken_theme_options_render_page() {
 
 
 
+// Add the theme options page to the admin menu
+function kraken_theme_options_add_page() {
+    $theme_page = add_theme_page(
+        'Theme Options', // Name of page
+        'Theme Options', // Label in menu
+        'edit_theme_options', // Capability required
+        'theme_options', // Menu slug, used to uniquely identify the page
+        'kraken_theme_options_render_page' // Function that renders the options page
+    );
+}
+add_action( 'admin_menu', 'kraken_theme_options_add_page' );
+
+
+
+// Restrict access to the theme options page to admins
+function kraken_option_page_capability( $capability ) {
+    return 'edit_theme_options';
+}
+add_filter( 'option_page_capability_kraken_options', 'kraken_option_page_capability' );
+
+
+
 
 
 
@@ -258,7 +258,7 @@ function kraken_theme_options_render_page() {
  * ====================================================================== */
 
 // Get the current options from the database.
-// If none are specified, use the defaults.
+// If none are specified, use these defaults.
 function kraken_get_theme_options() {
     $saved = (array) get_option( 'kraken_theme_options' );
     $defaults = array(
