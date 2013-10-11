@@ -8,13 +8,13 @@
 
     Functions by Michael Fields.
     https://gist.github.com/mfields/4678999
-    
+
     Forked by Chris Ferdinandi.
     http://gomakethings.com
 
     Free to use under the MIT License.
     http://gomakethings.com/mit/
-    
+
  * ====================================================================== */
 
 
@@ -23,7 +23,7 @@
     Create the theme option fields.
 
     Each option field requires its own uniquely named function.
-    Select options and radio buttons also require an additional 
+    Select options and radio buttons also require an additional
     uniquely named function with an array of option choices.
  * ====================================================================== */
 
@@ -76,7 +76,7 @@ function _s_settings_field_sample_select_options_choices() {
             'label' => __( 'Five', '_s' )
         )
     );
- 
+
     return apply_filters( '_s_settings_field_sample_select_options_choices', $sample_select_options );
 }
 
@@ -89,7 +89,7 @@ function _s_settings_field_sample_select_options() {
             $selected = $options['sample_select_options'];
             $p = '';
             $r = '';
- 
+
             foreach ( _s_settings_field_sample_select_options_choices() as $option ) {
                 $label = $option['label'];
                 if ( $selected == $option['value'] ) // Make default first in list
@@ -123,14 +123,14 @@ function _s_settings_field_sample_radio_buttons_choices() {
             'label' => __( 'Maybe', '_s' )
         )
     );
- 
+
     return apply_filters( '_s_settings_field_sample_radio_buttons_choices', $sample_radio_buttons );
 }
 
 // Sample radio buttons field
 function _s_settings_field_sample_radio_buttons() {
     $options = _s_get_theme_options();
- 
+
     foreach ( _s_settings_field_sample_radio_buttons_choices() as $button ) {
     ?>
     <div class="layout">
@@ -177,12 +177,12 @@ function _s_get_theme_options() {
         'sample_radio_buttons'  => '',
         'sample_textarea'       => '',
     );
- 
+
     $defaults = apply_filters( '_s_default_theme_options', $defaults );
- 
+
     $options = wp_parse_args( $saved, $defaults );
     $options = array_intersect_key( $options, $defaults );
- 
+
     return $options;
 }
 
@@ -191,27 +191,27 @@ function _s_get_theme_options() {
 // Sanitize and validate updated theme options
 function _s_theme_options_validate( $input ) {
     $output = array();
- 
+
     // Checkboxes will only be present if checked.
     if ( isset( $input['sample_checkbox'] ) )
         $output['sample_checkbox'] = 'on';
- 
+
     // The sample text input must be safe text with no HTML tags
     if ( isset( $input['sample_text_input'] ) && ! empty( $input['sample_text_input'] ) )
         $output['sample_text_input'] = wp_filter_nohtml_kses( $input['sample_text_input'] );
- 
+
     // The sample select option must actually be in the array of select options
     if ( isset( $input['sample_select_options'] ) && array_key_exists( $input['sample_select_options'], _s_settings_field_sample_select_options_choices() ) )
         $output['sample_select_options'] = $input['sample_select_options'];
- 
+
     // The sample radio button value must be in our array of radio button values
     if ( isset( $input['sample_radio_buttons'] ) && array_key_exists( $input['sample_radio_buttons'], _s_settings_field_sample_radio_buttons_choices() ) )
         $output['sample_radio_buttons'] = $input['sample_radio_buttons'];
- 
+
     // The sample textarea must be safe text with the allowed tags for posts
     if ( isset( $input['sample_textarea'] ) && ! empty( $input['sample_textarea'] ) )
         $output['sample_textarea'] = wp_filter_post_kses( $input['sample_textarea'] );
- 
+
     return apply_filters( '_s_theme_options_validate', $output, $input );
 }
 
@@ -235,7 +235,7 @@ function _s_theme_options_render_page() {
         <?php $theme_name = function_exists( 'wp_get_theme' ) ? wp_get_theme() : get_current_theme(); ?>
         <h2><?php printf( __( '%s Theme Options', '_s' ), $theme_name ); ?></h2>
         <?php settings_errors(); ?>
- 
+
         <form method="post" action="options.php">
             <?php
                 settings_fields( '_s_options' );
@@ -258,7 +258,7 @@ function _s_theme_options_init() {
     // $sanitize_callback - A callback function that sanitizes the option's value.
 
     register_setting( '_s_options', '_s_theme_options', '_s_theme_options_validate' );
- 
+
 
     // Register our settings field group
     // add_settings_section( $id, $title, $callback, $page );
@@ -268,7 +268,7 @@ function _s_theme_options_init() {
     // $page - // Menu slug, used to uniquely identify the page. See _s_theme_options_add_page().
 
     add_settings_section( 'general', 'General Options',  '__return_false', 'theme_options' );
- 
+
 
     // Register our individual settings fields
     // add_settings_field( $id, $title, $callback, $page, $section );
@@ -291,10 +291,12 @@ add_action( 'admin_init', '_s_theme_options_init' );
 // Add the theme options page to the admin menu
 // Use add_theme_page() to add under Appearance tab (default).
 // Use add_menu_page() to add as it's own tab.
+// Use add_submenu_page() to add to another tab.
 function _s_theme_options_add_page() {
 
     // add_theme_page( $page_title, $menu_title, $capability, $menu_slug, $function );
     // add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function );
+    // add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function );
     // $page_title - Name of page
     // $ menu_title - Label in menu
     // $capability - Capability required
@@ -303,6 +305,7 @@ function _s_theme_options_add_page() {
 
     $theme_page = add_theme_page( __( 'Theme Options', '_s' ), __( 'Theme Options', '_s' ), 'edit_theme_options', 'theme_options', '_s_theme_options_render_page' );
     // $theme_page = add_menu_page( __( 'Theme Options', '_s' ), __( 'Theme Options', '_s' ), 'edit_theme_options', 'theme_options', '_s_theme_options_render_page' );
+    // $theme_page = add_submenu_page( 'tools.php', __( 'Theme Options', '_s' ), __( 'Theme Options', '_s' ), 'edit_theme_options', 'theme_options', '_s_theme_options_render_page' );
 }
 add_action( 'admin_menu', '_s_theme_options_add_page' );
 
