@@ -2,7 +2,7 @@
 
 /* ======================================================================
 
-    Theme Options v1.0
+    Theme Options v1.1
     Adjust theme settings from the admin dashboard.
     Find and replace `_s` with your own namespacing.
 
@@ -231,7 +231,6 @@ function _s_theme_options_validate( $input ) {
 function _s_theme_options_render_page() {
     ?>
     <div class="wrap">
-        <?php screen_icon(); ?>
         <?php $theme_name = function_exists( 'wp_get_theme' ) ? wp_get_theme() : get_current_theme(); ?>
         <h2><?php printf( __( '%s Theme Options', '_s' ), $theme_name ); ?></h2>
         <?php settings_errors(); ?>
