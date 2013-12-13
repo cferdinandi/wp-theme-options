@@ -4,7 +4,7 @@
 
     Theme Options v1.1
     Adjust theme settings from the admin dashboard.
-    Find and replace `_s` with your own namespacing.
+    Find and replace `kraken` with your own namespacing.
 
     Functions by Michael Fields.
     https://gist.github.com/mfields/4678999
