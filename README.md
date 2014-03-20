@@ -12,8 +12,9 @@ This is not a plugin. A working knowledge of PHP and WordPress functions is requ
 4. [Saving and Updating](#saving-and-updating)
 5. [Using Options In Your Theme](#using-options-in-your-theme)
 6. [Example](#example)
-7. [License](#license)
-8. [Changelog](#changelog)
+7. [How to Contribute](#how-to-contribute)
+8. [License](#license)
+9. [Changelog](#changelog)
 
 
 
@@ -278,6 +279,12 @@ Now you can call this function in the footer.php template to add the Google Anal
 ```php
 <?php echo google_analytics(); ?>
 ```
+
+
+
+## How to Contribute
+
+In lieu of a formal style guide, take care to maintain the existing coding style. Don't forget to update the version number, the changelog (in the `readme.md` file), and when applicable, the documentation.
 
 
 
