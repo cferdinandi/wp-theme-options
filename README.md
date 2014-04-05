@@ -4,6 +4,8 @@ WordPress Theme Options is a boilerplate for creating a theme options page. It i
 
 This is not a plugin. A working knowledge of PHP and WordPress functions is required. Forked from [Michael Fields](https://gist.github.com/mfields/4678999).
 
+[Download WordPress Theme Options](https://github.com/cferdinandi/wp-theme-options/archive/master.zip)
+
 **In This Documentation**
 
 1. [Getting Started](#getting-started)
