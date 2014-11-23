@@ -48,23 +48,23 @@ Select options and radio buttons also require an additional uniquely named funct
 
 ```php
 // Create sample text input field
-function kraken_settings_field_sample_text_input() {
-	$options = kraken_get_theme_options();
+function YourTheme_settings_field_sample_text_input() {
+	$options = YourTheme_get_theme_options();
 	?>
-	<input type="text" name="kraken_theme_options[sample_text_input]" id="sample-text-input" value="<?php echo esc_attr( $options['sample_text_input'] ); ?>" />
+	<input type="text" name="YourTheme_theme_options[sample_text_input]" id="sample-text-input" value="<?php echo esc_attr( $options['sample_text_input'] ); ?>" />
 	<label class="description" for="sample-text-input">Sample text input</label>
 	<?php
 }
 ```
 
-`kraken_get_theme_options()` is a function that's used to get a list of the current theme option settings.
+`YourTheme_get_theme_options()` is a function that's used to get a list of the current theme option settings.
 
 **Example Radio Buttons:**
 
 ```php
 // Create options for radio buttons field
-// Used in kraken_settings_field_sample_radio_buttons()
-function kraken_sample_radio_button_choices() {
+// Used in YourTheme_settings_field_sample_radio_buttons()
+function YourTheme_sample_radio_button_choices() {
 	$sample_radio_buttons = array(
 		'yes' => array(
 			'value' => 'yes',
@@ -80,18 +80,18 @@ function kraken_sample_radio_button_choices() {
 		)
 	);
 
-	return apply_filters( 'kraken_sample_radio_button_choices', $sample_radio_buttons );
+	return apply_filters( 'YourTheme_sample_radio_button_choices', $sample_radio_buttons );
 }
 
 // Create sample radio buttons field
-function kraken_settings_field_sample_radio_buttons() {
-	$options = kraken_get_theme_options();
+function YourTheme_settings_field_sample_radio_buttons() {
+	$options = YourTheme_get_theme_options();
 
-	foreach ( kraken_sample_radio_button_choices() as $button ) {
+	foreach ( YourTheme_sample_radio_button_choices() as $button ) {
 	?>
 	<div class="layout">
 		<label class="description">
-			<input type="radio" name="kraken_theme_options[sample_radio_buttons]" value="<?php echo esc_attr( $button['value'] ); ?>" <?php checked( $options['sample_radio_buttons'], $button['value'] ); ?> />
+			<input type="radio" name="YourTheme_theme_options[sample_radio_buttons]" value="<?php echo esc_attr( $button['value'] ); ?>" <?php checked( $options['sample_radio_buttons'], $button['value'] ); ?> />
 			<?php echo $button['label']; ?>
 		</label>
 	</div>
@@ -110,10 +110,10 @@ To create your own field, copy-and-paste one of the sample field functions, and 
 
 There are four functions that are used to create the actual theme options page in the admin menu:
 
-`kraken_theme_options_init()` - Register's the theme options page and its fields.
-`kraken_theme_options_render_page()` - Creates the theme options page layout.
-`kraken_theme_options_add_page()` - Adds the theme options page to the admin menu.
-`kraken_option_page_capability()` - Restricts access to the theme options page to admins only.
+`YourTheme_theme_options_init()` - Register's the theme options page and its fields.
+`YourTheme_theme_options_render_page()` - Creates the theme options page layout.
+`YourTheme_theme_options_add_page()` - Adds the theme options page to the admin menu.
+`YourTheme_option_page_capability()` - Restricts access to the theme options page to admins only.
 
 ### Creating a section
 
@@ -132,7 +132,7 @@ Replace `general` with your preferred section name, and add a section title if d
 
 ### Registering your fields
 
-You need to register any field you create under in the `kraken_theme_options_init()` function. This tells WordPress to include that field in the theme options page.
+You need to register any field you create under in the `YourTheme_theme_options_init()` function. This tells WordPress to include that field in the theme options page.
 
 ```php
 add_settings_field( $id, $title, $callback, $page, $section );
@@ -147,20 +147,20 @@ add_settings_field( $id, $title, $callback, $page, $section );
 For example, here's how you'd register the sample text box to the `general` section:
 
 ```php
-add_settings_field( 'sample_textarea', 'Sample Textarea', 'kraken_settings_field_sample_textarea', 'theme_options', 'general' );
+add_settings_field( 'sample_textarea', 'Sample Textarea', 'YourTheme_settings_field_sample_textarea', 'theme_options', 'general' );
 ```
 
 ### Create the layout
 
-The `kraken_theme_options_render_page()` is where you create the layout for the theme options page. If you want to add any additional instructions, that's the place to do it.
+The `YourTheme_theme_options_render_page()` is where you create the layout for the theme options page. If you want to add any additional instructions, that's the place to do it.
 
 ### Add the options page to the admin menu
 
-The `kraken_theme_options_add_page()` function adds your theme options page to the admin menu. You don't need to change anything here, but if you wanted to have more than one theme options page, you would copy-and-paste this function and adjust the details as needed.
+The `YourTheme_theme_options_add_page()` function adds your theme options page to the admin menu. You don't need to change anything here, but if you wanted to have more than one theme options page, you would copy-and-paste this function and adjust the details as needed.
 
 ### Restricting access
 
-The `kraken_option_page_capability()` function ensures that only people with admin privileges can access the theme options. You don't need to change anything here.
+The `YourTheme_option_page_capability()` function ensures that only people with admin privileges can access the theme options. You don't need to change anything here.
 
 
 
@@ -168,11 +168,11 @@ The `kraken_option_page_capability()` function ensures that only people with adm
 
 There are two functions responsible for saving and updating theme options:
 
-`kraken_get_theme_options()` - Get's the current theme options from the database. If none are set, applies defaults.
-`kraken_theme_options_validate()` - Santizies and validates each theme option value to ensure no malicious code is added to the database.
+`YourTheme_get_theme_options()` - Get's the current theme options from the database. If none are set, applies defaults.
+`YourTheme_theme_options_validate()` - Santizies and validates each theme option value to ensure no malicious code is added to the database.
 Setting your defaults
 
-You should specify a default value in the `kraken_get_theme_options()` function for any field you add to the theme options page.
+You should specify a default value in the `YourTheme_get_theme_options()` function for any field you add to the theme options page.
 
 ```php
 $defaults = array(
@@ -199,7 +199,7 @@ You can retrieve options for use in your theme using the `get_option($option)` f
 Here's how you would display the value of the sample text input:
 
 ```php
-<?php echo get_option('kraken_theme_options[sample_text_input]'); ?>
+<?php echo get_option('YourTheme_theme_options[sample_text_input]'); ?>
 ```
 
 
@@ -215,10 +215,10 @@ If the field has a value, we'll add a Google Analytics script to our footer. Oth
 The first thing we'll need to do is create an options field for the Google Analytics ID.
 
 ```php
-function kraken_settings_google_analytics() {
-	$options = kraken_get_theme_options();
+function YourTheme_settings_google_analytics() {
+	$options = YourTheme_get_theme_options();
 	?>
-	<input type="text" name="kraken_theme_options[google_analytics]" id="google-analytics" value="<?php echo esc_attr( $options['google_analytics'] ); ?>" />
+	<input type="text" name="YourTheme_theme_options[google_analytics]" id="google-analytics" value="<?php echo esc_attr( $options['google_analytics'] ); ?>" />
 	<label class="description" for="google-analytics">Add your site's ID in this format: UA-XXXXX-X</label>
 	<?php
 }
@@ -226,15 +226,15 @@ function kraken_settings_google_analytics() {
 
 ### 2. Register the new field.
 
-Next, we'll need to register the new field in the `kraken_theme_options_init()` function.
+Next, we'll need to register the new field in the `YourTheme_theme_options_init()` function.
 
 ```php
-add_settings_field( 'google_analytics', 'Google Analytics ID', 'kraken_settings_google_analytics', 'theme_options', 'general' );
+add_settings_field( 'google_analytics', 'Google Analytics ID', 'YourTheme_settings_google_analytics', 'theme_options', 'general' );
 ```
 
 ### 3. Set the default value.
 
-Set a default value for the field under the `kraken_get_theme_options()` function.
+Set a default value for the field under the `YourTheme_get_theme_options()` function.
 
 ```php
 $defaults = array(
@@ -244,7 +244,7 @@ $defaults = array(
 
 ### 4. Sanitize the value.
 
-Add a sanitizer under the `kraken_theme_options_validate()` function.
+Add a sanitizer under the `YourTheme_theme_options_validate()` function.
 
 ```php
 if ( isset( $input['google_analytics'] ) && ! empty( $input['google_analytics'] ) )
@@ -298,7 +298,9 @@ WordPress Theme Options is licensed under the [MIT License](http://gomakethings.
 
 ## Changelog
 
-* v1.1 - December 13, 2013
+WordPress Theme Options uses [semantic versioning](http://semver.org/).
+
+* v1.1.0 - December 13, 2013
 	* Removed `screen_icon()` function, [deprecated in WP 3.8](http://codex.wordpress.org/Version_3.8).
-* v1.0 - September 2, 2013
+* v1.0.0 - September 2, 2013
 	* Initial release.
