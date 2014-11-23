@@ -298,7 +298,9 @@ WordPress Theme Options is licensed under the [MIT License](http://gomakethings.
 
 ## Changelog
 
-* v1.1 - December 13, 2013
+WordPress Theme Options uses [semantic versioning](http://semver.org/).
+
+* v1.1.0 - December 13, 2013
 	* Removed `screen_icon()` function, [deprecated in WP 3.8](http://codex.wordpress.org/Version_3.8).
-* v1.0 - September 2, 2013
+* v1.0.0 - September 2, 2013
 	* Initial release.
