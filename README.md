@@ -16,7 +16,6 @@ This is not a plugin. A working knowledge of PHP and WordPress functions is requ
 6. [Example](#example)
 7. [How to Contribute](#how-to-contribute)
 8. [License](#license)
-9. [Changelog](#changelog)
 
 
 
@@ -292,15 +291,4 @@ In lieu of a formal style guide, take care to maintain the existing coding style
 
 ## License
 
-WordPress Theme Options is licensed under the [MIT License](http://gomakethings.com/mit/).
-
-
-
-## Changelog
-
-WordPress Theme Options uses [semantic versioning](http://semver.org/).
-
-* v1.1.0 - December 13, 2013
-	* Removed `screen_icon()` function, [deprecated in WP 3.8](http://codex.wordpress.org/Version_3.8).
-* v1.0.0 - September 2, 2013
-	* Initial release.
+The code is available under the [MIT License](LICENSE.md).
